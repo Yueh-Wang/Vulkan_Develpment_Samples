@@ -1,0 +1,13 @@
+1. 解决找不到 libshaderc.a 的问题
+进入<ndk-root>/sources/third_party/shaderc/目录
+执行：
+../../../ndk-build NDK_PROJECT_PATH=. APP_BUILD_SCRIPT=Android.mk \
+APP_STL:=c++_static APP_ABI=all libshaderc_combined -j16
+
+
+2. 解决gradle找不到和gradle跟jdk不匹配的问题
+gradle.properties中增加下面，指定jdk版本的路径
+org.gradle.java.home=/usr/lib/jvm/jdk-12.0.2
+
+gradle.properties中修改最后一句
+distributionUrl=https\://services.gradle.org/distributions/gradle-5.4.1-all.zip
