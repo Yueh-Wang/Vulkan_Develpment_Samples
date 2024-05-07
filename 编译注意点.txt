@@ -11,3 +11,17 @@ org.gradle.java.home=/usr/lib/jvm/jdk-12.0.2
 
 gradle.properties中修改最后一句
 distributionUrl=https\://services.gradle.org/distributions/gradle-5.4.1-all.zip
+
+3. 找不到 VK_DYNAMIC_STATE_RANGE_SIZE
+#define VK_DYNAMIC_STATE_RANGE_SIZE (VK_DYNAMIC_STATE_STENCIL_REFERENCE - VK_DYNAMIC_STATE_VIEWPORT + 1)
+
+4. 代码里warning被当成错误，导致编译通不过，CMakeLists内拿掉 -Wall
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -fno-rtti -fexceptions -D VK_USE_PLATFORM_ANDROID_KHR")
+
+5. No toolchains found in the NDK toolchains folder for ABI with prefix: arm-linux-androideabi
+NDK版本过高导致，修改NDK版本
+The main reason is that NDK 23 has different toolchain than the previous versions of NDK (22-), so the old version of AGP (Android Gradle Plugin) has not idea where to find the executables for different ABIs.
+修改build.gradle
+android {
+    android.ndkVersion "21.4.7075529"
